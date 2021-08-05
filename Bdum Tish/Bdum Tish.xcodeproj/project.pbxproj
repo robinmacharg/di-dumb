@@ -66,6 +66,8 @@
 		003015CE26BBDA0000ED82B6 /* Bdum_TishUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bdum_TishUITests.swift; sourceTree = "<group>"; };
 		003015D026BBDA0000ED82B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0030161426BBDCC700ED82B6 /* di-dumb.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "di-dumb.xcodeproj"; path = "../../di-dumb/di-dumb.xcodeproj"; sourceTree = "<group>"; };
+		0030161D26BBDDA500ED82B6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		0030161E26BBDF7A00ED82B6 /* README_submission.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README_submission.md; path = ../README_submission.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,8 @@
 		0030159D26BBD9FD00ED82B6 = {
 			isa = PBXGroup;
 			children = (
+				0030161E26BBDF7A00ED82B6 /* README_submission.md */,
+				0030161D26BBDDA500ED82B6 /* README.md */,
 				003015A826BBD9FD00ED82B6 /* Bdum Tish */,
 				003015C226BBDA0000ED82B6 /* Bdum TishTests */,
 				003015CD26BBDA0000ED82B6 /* Bdum TishUITests */,
