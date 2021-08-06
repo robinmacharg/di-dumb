@@ -16,6 +16,11 @@
 		003015B926BBDA0000ED82B6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 003015B726BBDA0000ED82B6 /* LaunchScreen.storyboard */; };
 		003015C426BBDA0000ED82B6 /* Bdum_TishTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003015C326BBDA0000ED82B6 /* Bdum_TishTests.swift */; };
 		003015CF26BBDA0000ED82B6 /* Bdum_TishUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003015CE26BBDA0000ED82B6 /* Bdum_TishUITests.swift */; };
+		0030162426BC0F3200ED82B6 /* NetworkServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030162326BC0F3200ED82B6 /* NetworkServiceFactory.swift */; };
+		0030162D26BC21A800ED82B6 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030162C26BC21A800ED82B6 /* ViewFactory.swift */; };
+		0030163026BC21BF00ED82B6 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030162F26BC21BF00ED82B6 /* ViewModelFactory.swift */; };
+		0030163226BC23F600ED82B6 /* NetworkServiceFactoryX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030163126BC23F600ED82B6 /* NetworkServiceFactoryX.swift */; };
+		0030163426BC240700ED82B6 /* StorageServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030163326BC240700ED82B6 /* StorageServiceFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +73,11 @@
 		0030161426BBDCC700ED82B6 /* di-dumb.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "di-dumb.xcodeproj"; path = "../../di-dumb/di-dumb.xcodeproj"; sourceTree = "<group>"; };
 		0030161D26BBDDA500ED82B6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		0030161E26BBDF7A00ED82B6 /* README_submission.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README_submission.md; path = ../README_submission.md; sourceTree = "<group>"; };
+		0030162326BC0F3200ED82B6 /* NetworkServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceFactory.swift; sourceTree = "<group>"; };
+		0030162C26BC21A800ED82B6 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
+		0030162F26BC21BF00ED82B6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
+		0030163126BC23F600ED82B6 /* NetworkServiceFactoryX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceFactoryX.swift; sourceTree = "<group>"; };
+		0030163326BC240700ED82B6 /* StorageServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +139,8 @@
 				003015B726BBDA0000ED82B6 /* LaunchScreen.storyboard */,
 				003015BA26BBDA0000ED82B6 /* Info.plist */,
 				003015B226BBD9FD00ED82B6 /* Bdum_Tish.xcdatamodeld */,
+				0030162326BC0F3200ED82B6 /* NetworkServiceFactory.swift */,
+				0030162E26BC21AF00ED82B6 /* Factories */,
 			);
 			path = "Bdum Tish";
 			sourceTree = "<group>";
@@ -158,6 +170,17 @@
 				0030161C26BBDCC700ED82B6 /* di-dumbTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0030162E26BC21AF00ED82B6 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				0030162C26BC21A800ED82B6 /* ViewFactory.swift */,
+				0030162F26BC21BF00ED82B6 /* ViewModelFactory.swift */,
+				0030163126BC23F600ED82B6 /* NetworkServiceFactoryX.swift */,
+				0030163326BC240700ED82B6 /* StorageServiceFactory.swift */,
+			);
+			path = Factories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,8 +338,13 @@
 			files = (
 				003015AE26BBD9FD00ED82B6 /* ViewController.swift in Sources */,
 				003015B426BBD9FD00ED82B6 /* Bdum_Tish.xcdatamodeld in Sources */,
+				0030163226BC23F600ED82B6 /* NetworkServiceFactoryX.swift in Sources */,
+				0030162D26BC21A800ED82B6 /* ViewFactory.swift in Sources */,
+				0030162426BC0F3200ED82B6 /* NetworkServiceFactory.swift in Sources */,
 				003015AA26BBD9FD00ED82B6 /* AppDelegate.swift in Sources */,
 				003015AC26BBD9FD00ED82B6 /* SceneDelegate.swift in Sources */,
+				0030163426BC240700ED82B6 /* StorageServiceFactory.swift in Sources */,
+				0030163026BC21BF00ED82B6 /* ViewModelFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
