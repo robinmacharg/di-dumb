@@ -54,3 +54,4 @@ The DI framework is based on discussion and associated playground
 - Explore circular dependencies
 - Explore property decorators
 - Docs
+- SPM?

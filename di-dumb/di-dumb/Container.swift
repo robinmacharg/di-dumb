@@ -16,9 +16,15 @@ public enum ContainerError: Error {
     }
 }
 
+/**
+ * A dependency container.
+ * Includes dependency registration and resolution functions.
+ * Supports instance and factory dependencies.
+ * Supports chaining of registrations
+ */
 public struct Container: Resolver {
 
-    public struct Errors {
+    public struct ErrorTexts {
         public static let noSuitableFactoryFound = "No suitable factory found"
     }
 
@@ -34,10 +40,26 @@ public struct Container: Resolver {
 
     // MARK: Register
 
+    /**
+     * Register a single instance to be resolved for a type.
+     *
+     * - Parameters:
+     *     - interface: The type to register the instance for resolution for.
+     *     - instance: The specific instance to resolve for the supplied type.
+     */
     public func register<T>(_ interface: T.Type, instance: T) -> Container {
         return register(interface) { _ in instance }
     }
 
+    /**
+     * Register a factory closure for producing dependencies on-demand.  Allows for external logic to be
+     * applied to dependency resolution.
+     *
+     * - Parameters:
+     *     - type: The dependency type to register for
+     *     - factory: A factory closure that can generate instances of the type on demand.
+     * - Returns: An instance of self
+     */
     public func register<ServiceType>(_ type: ServiceType.Type, _ factory: @escaping (Resolver) -> ServiceType) -> Container {
         assert(!factories.contains(where: { $0.supports(type) }))
 
@@ -49,6 +71,12 @@ public struct Container: Resolver {
 
     // MARK: Resolver
 
+    /**
+     * Resolve a dependency for a given type by calling the appropriate factory method.
+     *
+     * - Parameters:
+     *     - type: The type to resolve the dependency for
+     */
     public func resolve<ServiceType>(_ type: ServiceType.Type) -> Result<ServiceType, Error> {
         guard let factory = factories.first(where: { $0.supports(type) }) else {
             return .failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
@@ -57,10 +85,17 @@ public struct Container: Resolver {
         return .success(factory.resolve(self))
     }
 
+    /**
+     * Resolve a factory for a given type.
+     *
+     * - Parameters:
+     *     - type: The type to resolve the dependency for
+     * - Returns: The factory that can produce instances of `type`
+     */
     public func factory<ServiceType>(for type: ServiceType.Type) -> () -> ServiceType  {
         guard let factory = factories.first(where: { $0.supports(type) }) else {
 //            return failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
-            fatalError(Errors.noSuitableFactoryFound)
+            fatalError(ErrorTexts.noSuitableFactoryFound)
         }
 
         return  { factory.resolve(self) }
