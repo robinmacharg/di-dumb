@@ -7,18 +7,11 @@
 
 import UIKit
 import CoreData
-import Drumroll
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    // Drumroll setup
-    var drumrollLocator: Locator!
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-        drumrollLocator = LocatorImpl()
-        drumrollLocator.register(Mac.self)
 
         return true
     }

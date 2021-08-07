@@ -23,6 +23,8 @@
 		0030163426BC240700ED82B6 /* StorageServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030163326BC240700ED82B6 /* StorageServiceFactory.swift */; };
 		0030166926BEB53D00ED82B6 /* Programmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030166826BEB53D00ED82B6 /* Programmer.swift */; };
 		0030166C26BEBF6E00ED82B6 /* FatalErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030166B26BEBF6E00ED82B6 /* FatalErrorUtil.swift */; };
+		00B11D4926BEF98800B50442 /* di_dumb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0030161A26BBDCC700ED82B6 /* di_dumb.framework */; };
+		00B11D4A26BEF98800B50442 /* di_dumb.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0030161A26BBDCC700ED82B6 /* di_dumb.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,20 +56,6 @@
 			remoteGlobalIDString = 003015EF26BBDB7300ED82B6;
 			remoteInfo = "di-dumbTests";
 		};
-		0030165E26BEB44300ED82B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0030165926BEB44300ED82B6 /* Drumroll.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0030163F26BEB42200ED82B6;
-			remoteInfo = Drumroll;
-		};
-		0030166026BEB44300ED82B6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0030165926BEB44300ED82B6 /* Drumroll.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0030164826BEB42200ED82B6;
-			remoteInfo = DrumrollTests;
-		};
 		00B11D4726BEE33B00B50442 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0030161426BBDCC700ED82B6 /* di-dumb.xcodeproj */;
@@ -76,6 +64,20 @@
 			remoteInfo = "di-dumb";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		00B11D4B26BEF98800B50442 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				00B11D4A26BEF98800B50442 /* di_dumb.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		003015A626BBD9FD00ED82B6 /* Bdum Tish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bdum Tish.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +103,6 @@
 		0030162F26BC21BF00ED82B6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		0030163126BC23F600ED82B6 /* NetworkServiceFactoryX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceFactoryX.swift; sourceTree = "<group>"; };
 		0030163326BC240700ED82B6 /* StorageServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceFactory.swift; sourceTree = "<group>"; };
-		0030165926BEB44300ED82B6 /* Drumroll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Drumroll.xcodeproj; path = ../../Drumroll/Drumroll.xcodeproj; sourceTree = "<group>"; };
 		0030166826BEB53D00ED82B6 /* Programmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Programmer.swift; sourceTree = "<group>"; };
 		0030166B26BEBF6E00ED82B6 /* FatalErrorUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00B11D4926BEF98800B50442 /* di_dumb.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +159,6 @@
 		003015A826BBD9FD00ED82B6 /* Bdum Tish */ = {
 			isa = PBXGroup;
 			children = (
-				0030165926BEB44300ED82B6 /* Drumroll.xcodeproj */,
 				0030161426BBDCC700ED82B6 /* di-dumb.xcodeproj */,
 				003015A926BBD9FD00ED82B6 /* AppDelegate.swift */,
 				003015AB26BBD9FD00ED82B6 /* SceneDelegate.swift */,
@@ -213,15 +214,6 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
-		0030165A26BEB44300ED82B6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0030165F26BEB44300ED82B6 /* Drumroll.framework */,
-				0030166126BEB44300ED82B6 /* DrumrollTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		0030166426BEB50700ED82B6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +239,7 @@
 				003015A226BBD9FD00ED82B6 /* Sources */,
 				003015A326BBD9FD00ED82B6 /* Frameworks */,
 				003015A426BBD9FD00ED82B6 /* Resources */,
+				00B11D4B26BEF98800B50442 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -332,10 +325,6 @@
 					ProductGroup = 0030161526BBDCC700ED82B6 /* Products */;
 					ProjectRef = 0030161426BBDCC700ED82B6 /* di-dumb.xcodeproj */;
 				},
-				{
-					ProductGroup = 0030165A26BEB44300ED82B6 /* Products */;
-					ProjectRef = 0030165926BEB44300ED82B6 /* Drumroll.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -359,20 +348,6 @@
 			fileType = wrapper.cfbundle;
 			path = "di-dumbTests.xctest";
 			remoteRef = 0030161B26BBDCC700ED82B6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0030165F26BEB44300ED82B6 /* Drumroll.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Drumroll.framework;
-			remoteRef = 0030165E26BEB44300ED82B6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0030166126BEB44300ED82B6 /* DrumrollTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = DrumrollTests.xctest;
-			remoteRef = 0030166026BEB44300ED82B6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

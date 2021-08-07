@@ -1,6 +1,10 @@
 # di-dumb
 A simple Swift Dependency Injection framework
 
+## Submission notes
+
+__Notes on the submitted code design, and its usage can be found (here)[README_submission.md].__ 
+
 ## Task Description
 
 We would like you to write a simple dependency injection framework in Swift. The solution need not be 

@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ * A type-erasing factory for services
+ */
 final class AnyServiceFactory {
     private let _resolve: (Resolver) -> Any
     private let _supports: (Any.Type) -> Bool
