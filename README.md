@@ -3,7 +3,7 @@ A simple Swift Dependency Injection framework
 
 ## Submission notes
 
-__Notes on the submitted code design, and its usage can be found (here)[README_submission.md].__ 
+__Notes on the submitted code design, and its usage can be found [here](README_submission.md).__ 
 
 ## Task Description
 

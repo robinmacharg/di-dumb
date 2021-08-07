@@ -14,7 +14,7 @@ To run the app:
 To run the DI tests:
 - Open the `.xcodeproj` project
 - Select the framework build scheme
-- Run all tests (CMD-U)
+- Run all tests (&#8984;-U)
 
 ## Design
 
@@ -25,11 +25,11 @@ There are several definitions of DI, increasing in complexity:
 3. Service-Locator based Dependency Injection
 4. Property Wrapper-based Dependency Injection
 
-Options 1 & 2 don't really require a framework to implement: simply provide arguments to `init()` or make dependency properties `public`.  I opted for option 3. My experience with DI has been at the level of options 1 & 2 until now, so I reached for Google.  The provided solution is based, with modification, on discussion found (here)[https://quickbirdstudios.com/blog/swift-dependency-injection-service-locators/].  This provided a Container-based solution that supported instance and factory-based dependency injection via configurable dependency containers.
+Options 1 & 2 don't really require a framework to implement: simply provide arguments to `init()` or make dependency properties `public`.  I opted for option 3. My experience with DI has been at the level of options 1 & 2 until now, so I reached for Google.  The provided solution is based, with modification, on discussion found [here](https://quickbirdstudios.com/blog/swift-dependency-injection-service-locators/).  This provided a Container-based solution that supported instance and factory-based dependency injection via configurable dependency containers.
 
 Option 4 uses new Swift features that I've not had time to play with as yet, but look to provide - with caveats - a clear way to declare injectable properties.
 
-The simplest, most likely correct solution to this problem is to use a predefined library such as (Swinject)[https://github.com/Swinject/Swinject] or (Resolver)[https://github.com/hmlongco/Resolver].  That's not what was asked for so I took the middle ground - embrace and extend.
+The simplest, most likely correct solution to this problem is to use a predefined library such as [Swinject](https://github.com/Swinject/Swinject) or [Resolver](https://github.com/hmlongco/Resolver).  That's not what was asked for so I took the middle ground - embrace and extend.
 
 ## Architecture
 
@@ -47,7 +47,6 @@ The DI framework is based on discussion and associated playground
 ## References
 
 * https://betterprogramming.pub/taking-swift-dependency-injection-to-the-next-level-b71114c6a9c6
-* 
 
 ## TODO
 
