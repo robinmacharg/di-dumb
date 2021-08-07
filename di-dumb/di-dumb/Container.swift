@@ -7,11 +7,24 @@
 
 import Foundation
 
+public enum ContainerError: Error {
+    case generalError(String)
+
+    public struct errorTexts {
+        public static let generalError = "An Unknown Error occurred"
+        public static let noSuitableFactoryFound = "No Suitable Factory Found"
+    }
+}
+
 public struct Container: Resolver {
+
+    public struct Errors {
+        public static let noSuitableFactoryFound = "No suitable factory found"
+    }
 
     let factories: [AnyServiceFactory]
 
-    init() {
+    public init() {
         self.factories = []
     }
 
@@ -36,18 +49,20 @@ public struct Container: Resolver {
 
     // MARK: Resolver
 
-    public func resolve<ServiceType>(_ type: ServiceType.Type) -> ServiceType {
+    public func resolve<ServiceType>(_ type: ServiceType.Type) -> Result<ServiceType, Error> {
         guard let factory = factories.first(where: { $0.supports(type) }) else {
-            fatalError("No suitable factory found")
+            return .failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
+//            fatalError(Errors.noSuitableFactoryFound)
         }
-        return factory.resolve(self)
+        return .success(factory.resolve(self))
     }
 
-    public func factory<ServiceType>(for type: ServiceType.Type) -> () -> ServiceType {
+    public func factory<ServiceType>(for type: ServiceType.Type) -> () -> ServiceType  {
         guard let factory = factories.first(where: { $0.supports(type) }) else {
-            fatalError("No suitable factory found")
+//            return failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
+            fatalError(Errors.noSuitableFactoryFound)
         }
 
-        return { factory.resolve(self) }
+        return  { factory.resolve(self) }
     }
 }

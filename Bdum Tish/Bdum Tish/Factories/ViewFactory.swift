@@ -8,6 +8,6 @@
 import Foundation
 
 protocol DependencyFactory {
-    func makeView() -> View
+//    func makeView() -> View
 //    func makeViewModel() -> ViewModel
 }
