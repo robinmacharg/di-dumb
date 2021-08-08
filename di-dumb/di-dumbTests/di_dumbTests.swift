@@ -10,8 +10,6 @@ import XCTest
 
 class di_dumbTests: XCTestCase {
 
-    let container = Container()
-
     override func setUpWithError() throws {}
     override func tearDownWithError() throws {}
 
@@ -51,19 +49,6 @@ class di_dumbTests: XCTestCase {
         if resolver.resolve(Coffee.self) != nil {
             XCTFail()
         }
-//        switch result {
-//        case .success(_):
-//            XCTFail()
-//        case .failure(let error as ContainerError):
-//            switch error {
-//            case .generalError(let string):
-//                XCTAssertEqual(string, ContainerError.errorTexts.noSuitableFactoryFound)
-//            default:
-//                XCTFail()
-//            }
-//        default:
-//            break
-//        }
     }
 
     func testCanRegisterAndResolveInstance() throws {
@@ -92,99 +77,82 @@ class di_dumbTests: XCTestCase {
     }
 
     func testCanRegisterAndFailsWithUnregsiteredFactory() throws {
-        let resolver = try! Container()
+        try! Container()
             .register(Coffee.self) { resolver in
                 let factory = resolver.factory(for: Caffeinated.self)
-                let result = factory()
-
-                if let result = factory() {
+                
+                if factory() != nil {
                     XCTFail()
                 }
 
-
-//                switch result {
-//                case .success(_):
-//                    XCTFail()
-//                case.failure(let error as ContainerError):
-//                    switch error {
-//                    case.generalError(let errorString):
-//                        fatalError(errorString)
-//                    default:
-//                        XCTFail()
-//                    }
-//                default:
-//                    fatalError("Unexpected execution")
-//                }
                 fatalError("Unexpected execution")
             }
-//        expectFatalError(expectedMessage: ContainerError.errorTexts.noSuitableFactoryFound) {
-//            _ = try! resolver.resolve(Coffee.self).get()
-//        }
     }
 
-//    func testCanRegisterAndSucceedsWithRegsiteredFactory() throws {
-//
-//        // Setup a container for injecting all the good things a a Mac programmer needs
-//        let macResolver = try! Container()
-//            // Coffee factory
-//            .register(Coffee.self) { _ in
-//                return Caffeinated()
-//            }
-//            .register(Computer.self, instance: Mac())
-//            .register(Programmer.self) { resolver in
-//                let programmer = Programmer()
-//
-//                let coffeeFactory = resolver.factory(for: Coffee.self)
-//                programmer.coffeeFactory = coffeeFactory
-//                let computerFactory = resolver.factory(for: Computer.self)
-//                programmer.computer = try! computerFactory().get()
-//
-//                return programmer
-//            }
-//
-//        guard let macProgrammer = try? macResolver.resolve(Programmer.self).get() else {
-//            XCTFail()
-//            return
-//        }
-//
-//        XCTAssertTrue(macProgrammer.coffee is Caffeinated)
-//        XCTAssertTrue(macProgrammer.computer is Mac)
-//
-//        let firstCoffee = macProgrammer.brewCoffee()
-//        let secondCoffee = macProgrammer.brewCoffee()
-//        XCTAssertFalse(firstCoffee as? Caffeinated === secondCoffee as? Caffeinated)
-//
-//        let goodDayAtTheOffice = macProgrammer.startTheDay()
-//        XCTAssertTrue(goodDayAtTheOffice)
-//
-//        // PC
-//        let pcResolver = try! Container()
-//            .register(Coffee.self, instance: Decaf())
-//            .register(Computer.self, instance: PC())
-//            .register(Programmer.self) { resolver in
-//                let programmer = Programmer()
-//
-//                let coffeeFactory = resolver.factory(for: Coffee.self)
-//                programmer.coffeeFactory = coffeeFactory
-//                let computerFactory = resolver.factory(for: Computer.self)
-//                programmer.computer = try! computerFactory().get()
-//
-//                return programmer
-//            }
-//
-//        guard let pcProgrammer = try? pcResolver.resolve(Programmer.self).get() else {
-//            XCTFail()
-//            return
-//        }
-//
-//        XCTAssertTrue(pcProgrammer.coffee is Decaf)
-//        XCTAssertTrue(pcProgrammer.computer is PC)
-//
-//        let firstPCCoffee = pcProgrammer.brewCoffee()
-//        let secondPCCoffee = pcProgrammer.brewCoffee()
-//        XCTAssertTrue(firstPCCoffee as? Caffeinated === secondPCCoffee as? Caffeinated)
-//
-//        let notAGoodDayAtTheOffice = pcProgrammer.startTheDay()
-//        XCTAssertFalse(notAGoodDayAtTheOffice)
-//    }
+    func testCanRegisterAndSucceedsWithRegsiteredFactory() throws {
+
+        // Set up a container for injecting all the good things a Mac programmer needs
+        let macResolver = try! Container()
+            // Coffee factory
+            .register(Coffee.self) { _ in
+                return Caffeinated()
+            }
+            .register(Computer.self, instance: Mac())
+            .register(Programmer.self) { resolver in
+                let programmer = Programmer()
+
+                let coffeeFactory = resolver.factory(for: Coffee.self)
+                programmer.coffeeFactory = coffeeFactory
+
+                let computerFactory = resolver.factory(for: Computer.self)
+                programmer.computer = computerFactory()
+
+                return programmer
+            }
+
+        guard let macProgrammer = macResolver.resolve(Programmer.self) else {
+            XCTFail()
+            return
+        }
+
+        XCTAssertTrue(macProgrammer.coffee is Caffeinated)
+        XCTAssertTrue(macProgrammer.computer is Mac)
+
+        let firstCoffee = macProgrammer.brewCoffee()
+        let secondCoffee = macProgrammer.brewCoffee()
+        XCTAssertFalse(firstCoffee as? Caffeinated === secondCoffee as? Caffeinated)
+
+        let goodDayAtTheOffice = macProgrammer.startTheDay()
+        XCTAssertTrue(goodDayAtTheOffice)
+
+        // PC
+        let pcResolver = try! Container()
+            .register(Coffee.self, instance: Decaf())
+            .register(Computer.self, instance: PC())
+            .register(Programmer.self) { resolver in
+                let programmer = Programmer()
+
+                let coffeeFactory = resolver.factory(for: Coffee.self)
+                programmer.coffeeFactory = coffeeFactory
+                let computerFactory = resolver.factory(for: Computer.self)
+                programmer.computer = computerFactory()
+
+                return programmer
+            }
+
+        guard let pcProgrammer = pcResolver.resolve(Programmer.self) else {
+            XCTFail()
+            return
+        }
+
+        XCTAssertTrue(pcProgrammer.coffee is Decaf)
+        XCTAssertTrue(pcProgrammer.computer is PC)
+
+        let firstPCCoffee = pcProgrammer.brewCoffee()
+        let secondPCCoffee = pcProgrammer.brewCoffee()
+        XCTAssertTrue(firstPCCoffee as? Caffeinated === secondPCCoffee as? Caffeinated)
+
+        let notAGoodDayAtTheOffice = pcProgrammer.startTheDay()
+        XCTAssertFalse(notAGoodDayAtTheOffice)
+    }
 }

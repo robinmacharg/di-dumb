@@ -21,7 +21,6 @@
 		0030163026BC21BF00ED82B6 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030162F26BC21BF00ED82B6 /* ViewModelFactory.swift */; };
 		0030163226BC23F600ED82B6 /* NetworkServiceFactoryX.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030163126BC23F600ED82B6 /* NetworkServiceFactoryX.swift */; };
 		0030163426BC240700ED82B6 /* StorageServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030163326BC240700ED82B6 /* StorageServiceFactory.swift */; };
-		0030166926BEB53D00ED82B6 /* Programmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030166826BEB53D00ED82B6 /* Programmer.swift */; };
 		0030166C26BEBF6E00ED82B6 /* FatalErrorUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030166B26BEBF6E00ED82B6 /* FatalErrorUtil.swift */; };
 		00B11D4926BEF98800B50442 /* di_dumb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0030161A26BBDCC700ED82B6 /* di_dumb.framework */; };
 		00B11D4A26BEF98800B50442 /* di_dumb.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0030161A26BBDCC700ED82B6 /* di_dumb.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -103,7 +102,6 @@
 		0030162F26BC21BF00ED82B6 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
 		0030163126BC23F600ED82B6 /* NetworkServiceFactoryX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceFactoryX.swift; sourceTree = "<group>"; };
 		0030163326BC240700ED82B6 /* StorageServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceFactory.swift; sourceTree = "<group>"; };
-		0030166826BEB53D00ED82B6 /* Programmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Programmer.swift; sourceTree = "<group>"; };
 		0030166B26BEBF6E00ED82B6 /* FatalErrorUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatalErrorUtil.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,7 +167,6 @@
 				003015BA26BBDA0000ED82B6 /* Info.plist */,
 				003015B226BBD9FD00ED82B6 /* Bdum_Tish.xcdatamodeld */,
 				0030162E26BC21AF00ED82B6 /* Factories */,
-				0030166A26BEB54100ED82B6 /* Dependent Components */,
 				0030166B26BEBF6E00ED82B6 /* FatalErrorUtil.swift */,
 			);
 			path = "Bdum Tish";
@@ -219,14 +216,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0030166A26BEB54100ED82B6 /* Dependent Components */ = {
-			isa = PBXGroup;
-			children = (
-				0030166826BEB53D00ED82B6 /* Programmer.swift */,
-			);
-			path = "Dependent Components";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -385,7 +374,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				003015AE26BBD9FD00ED82B6 /* ViewController.swift in Sources */,
-				0030166926BEB53D00ED82B6 /* Programmer.swift in Sources */,
 				003015B426BBD9FD00ED82B6 /* Bdum_Tish.xcdatamodeld in Sources */,
 				0030163226BC23F600ED82B6 /* NetworkServiceFactoryX.swift in Sources */,
 				0030162D26BC21A800ED82B6 /* ViewFactory.swift in Sources */,

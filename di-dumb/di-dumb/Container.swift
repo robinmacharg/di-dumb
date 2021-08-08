@@ -105,7 +105,7 @@ public struct Container: Resolver {
      *     - type: The type to resolve the dependency for
      * - Returns: The factory that can produce instances of `type`
      */
-    public func factory<ServiceType>(for type: ServiceType.Type) -> () -> ServiceType  {
+    public func factory<ServiceType>(for type: ServiceType.Type) -> () -> ServiceType?  {
         guard let factory = factories.first(where: { $0.supports(type) }) else {
 //            return failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
             fatalError(ContainerError.errorTexts.noSuitableFactoryFound)
