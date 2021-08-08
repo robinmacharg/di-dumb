@@ -61,5 +61,61 @@ enum FatalErrorUtil {
     static func restoreFatalError() {
         fatalErrorClosure = defaultFatalErrorClosure
     }
+
+    
+}
+
+enum FailingAssertionUtil {
+
+    typealias FailingAssertionClosureType = (String, StaticString, UInt) -> ()
+    // Called by the custom implementation of `fatalError`.
+    static var failingAssertionClosure: FailingAssertionClosureType = defaultFailingAssertionClosure
+
+    // backup of the original Swift `fatalError`
+    private static let defaultFailingAssertionClosure: FailingAssertionClosureType = { Swift.assert(false, "\($0) file: \($1) line: \($2)") }
+
+    /// Replace the `fatalError` global function with something else.
+    static func replaceFailingAssertion(closure: @escaping FailingAssertionClosureType) {
+        failingAssertionClosure = closure
+    }
+
+    /// Restore the `fatalError` global function back to the original Swift implementation
+    static func restoreFailingAssertion() {
+        failingAssertionClosure = defaultFailingAssertionClosure
+    }
+}
+
+extension XCTestCase {
+    func expectFailingAssertion(expectedMessage: String, testcase: @escaping () -> Void) {
+
+        // arrange
+        let expectation = self.expectation(description: "expectingFatalError")
+        var assertionMessage: String? = nil
+
+        // override fatalError. This will terminate thread when fatalError is called.
+        FailingAssertionUtil.replaceFailingAssertion { message, _, _ in
+            assertionMessage = message
+            expectation.fulfill()
+            // Terminate the current thread after expectation fulfill
+            Thread.exit()
+            // Since current thread was terminated this code never be executed
+            fatalError("It will never be executed")
+        }
+
+        // act, perform on separate thread to be able terminate this thread after expectation fulfill
+        Thread(block: testcase).start()
+
+        waitForExpectations(timeout: 0.1) { _ in
+            // assert
+            XCTAssertEqual(assertionMessage, expectedMessage)
+
+            // clean up
+            FatalErrorUtil.restoreFatalError()
+        }
+    }
+}
+
+func assert(_ condition: @autoclosure () -> Bool, _ message: @autoclosure () -> String = String(), file: StaticString = #file, line: UInt = #line) {
+    FailingAssertionUtil.failingAssertionClosure(message(), file, line)
 }
 

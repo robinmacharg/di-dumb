@@ -16,11 +16,11 @@ public enum ResolverError: Error {
 }
 
 public protocol Resolver {
-    func resolve<ServiceType>(_ type: ServiceType.Type) -> Result<ServiceType, Error>
+    func resolve<ServiceType>(_ type: ServiceType.Type) -> ServiceType?
 }
 
 public extension Resolver {
-    func factory<ServiceType>(for type: ServiceType.Type) -> () -> Result<ServiceType, Error> {
+    func factory<ServiceType>(for type: ServiceType.Type) -> () -> ServiceType? {
         return { self.resolve(type) }
     }
 }

@@ -7,12 +7,15 @@
 
 import Foundation
 
-public enum ContainerError: Error {
+public enum ContainerError: Error, Equatable {
     case generalError(String)
+    case factoryError
+    case registrationError
 
     public struct errorTexts {
         public static let generalError = "An Unknown Error occurred"
         public static let noSuitableFactoryFound = "No Suitable Factory Found"
+        public static let duplicateRegistrationAttempted = "Attempted to register an already registered type"
     }
 }
 
@@ -24,18 +27,16 @@ public enum ContainerError: Error {
  */
 public struct Container: Resolver {
 
-    public struct ErrorTexts {
-        public static let noSuitableFactoryFound = "No suitable factory found"
-    }
+    var factories: [AnyServiceFactory] = []
 
-    let factories: [AnyServiceFactory]
-
-    public init() {
-        self.factories = []
-    }
+    public init() {}
 
     private init(factories: [AnyServiceFactory]) {
         self.factories = factories
+    }
+
+    public func reset() -> Container {
+        return .init(factories: [])
     }
 
     // MARK: Register
@@ -47,8 +48,14 @@ public struct Container: Resolver {
      *     - interface: The type to register the instance for resolution for.
      *     - instance: The specific instance to resolve for the supplied type.
      */
-    public func register<T>(_ interface: T.Type, instance: T) -> Container {
-        return register(interface) { _ in instance }
+    @discardableResult
+    public func register<T>(_ interface: T.Type, instance: T) throws -> Container  {
+        do {
+            return try register(interface) { _ in instance }
+        }
+        catch let e {
+            throw e
+        }
     }
 
     /**
@@ -60,7 +67,13 @@ public struct Container: Resolver {
      *     - factory: A factory closure that can generate instances of the type on demand.
      * - Returns: An instance of self
      */
-    public func register<ServiceType>(_ type: ServiceType.Type, _ factory: @escaping (Resolver) -> ServiceType) -> Container {
+    @discardableResult
+    public func register<ServiceType>(_ type: ServiceType.Type, _ factory: @escaping (Resolver) -> ServiceType) throws -> Container   {
+        // Check we're not already registered for this type
+        if factories.contains(where: { $0.supports(type) }) {
+            throw ContainerError.registrationError
+        }
+
         assert(!factories.contains(where: { $0.supports(type) }))
 
         let newFactory = BasicServiceFactory<ServiceType>(type, factory: { resolver in
@@ -77,12 +90,12 @@ public struct Container: Resolver {
      * - Parameters:
      *     - type: The type to resolve the dependency for
      */
-    public func resolve<ServiceType>(_ type: ServiceType.Type) -> Result<ServiceType, Error> {
+    public func resolve<ServiceType>(_ type: ServiceType.Type) -> ServiceType? {
         guard let factory = factories.first(where: { $0.supports(type) }) else {
-            return .failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
+            return nil //.failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
 //            fatalError(Errors.noSuitableFactoryFound)
         }
-        return .success(factory.resolve(self))
+        return factory.resolve(self)
     }
 
     /**
@@ -95,7 +108,7 @@ public struct Container: Resolver {
     public func factory<ServiceType>(for type: ServiceType.Type) -> () -> ServiceType  {
         guard let factory = factories.first(where: { $0.supports(type) }) else {
 //            return failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
-            fatalError(ErrorTexts.noSuitableFactoryFound)
+            fatalError(ContainerError.errorTexts.noSuitableFactoryFound)
         }
 
         return  { factory.resolve(self) }
