@@ -155,4 +155,44 @@ class di_dumbTests: XCTestCase {
         let notAGoodDayAtTheOffice = pcProgrammer.startTheDay()
         XCTAssertFalse(notAGoodDayAtTheOffice)
     }
+
+    func testCircularDependency() throws {
+        let resolver = try! Container()
+            .register(A.self) { resolver in
+                let ai = AInst(b: resolver.resolve(B.self)!)
+                return ai
+            }
+            .register(B.self) { resolver in
+                let bi = BInst(a: resolver.resolve(A.self)!)
+                return bi
+            }
+
+        // Infinite recursion
+        let a = resolver.resolve(A.self)
+
+    }
+}
+
+protocol A {
+    var b: B { get set }
+}
+
+class AInst: A {
+    var b: B
+
+    init(b: B) {
+        self.b = b
+    }
+}
+
+protocol B {
+    var a: A { get set }
+}
+
+class BInst: B {
+    var a: A
+
+    init(a: A) {
+        self.a = a
+    }
 }

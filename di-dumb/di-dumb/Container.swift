@@ -90,6 +90,10 @@ public struct Container: Resolver {
      * - Parameters:
      *     - type: The type to resolve the dependency for
      */
+
+    // TODO: Try throws
+    // TODO: handle recursion
+
     public func resolve<ServiceType>(_ type: ServiceType.Type) -> ServiceType? {
         guard let factory = factories.first(where: { $0.supports(type) }) else {
             return nil //.failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))

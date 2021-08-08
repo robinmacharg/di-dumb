@@ -69,13 +69,19 @@ public class Programmer {
     private func updateTheBoss(message: String, caffination: Int, computerState: Bool) {
         boss?.progressUpdate(progress: "\(message), caffeine: \(caffination), computer is: \(computerState ? "on" : "off")")
     }
- 
+
+    public func brewCoffee() -> Coffee? {
+        guard let coffee = coffeeFactory() else {
+            return nil
+        }
+        return coffee
+    }
+
     private func codeLikeTheWind() {
         print("Tappety tap tap McTapster.  Ship it.")
     }
 }
 
-// @objc requirement for protocol conformation check could be seen as a limitation
 public protocol Computer {
     func turnOn() -> Bool
 }
