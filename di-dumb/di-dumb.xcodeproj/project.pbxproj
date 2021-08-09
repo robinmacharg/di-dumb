@@ -16,7 +16,6 @@
 		0030162826BC1F1C00ED82B6 /* AnyServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030162726BC1F1C00ED82B6 /* AnyServiceFactory.swift */; };
 		0030162A26BC1F5700ED82B6 /* BasicServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0030162926BC1F5700ED82B6 /* BasicServiceFactory.swift */; };
 		00B11D4D26BEFCD100B50442 /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B11D4C26BEFCD100B50442 /* ServiceLocator.swift */; };
-		00B11D5126BF2AE000B50442 /* OtherTestHelperFunctionality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B11D5026BF2AE000B50442 /* OtherTestHelperFunctionality.swift */; };
 		00B11D5B26C0600700B50442 /* ProgrammerAndDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B11D5A26C0600700B50442 /* ProgrammerAndDependencies.swift */; };
 		00B11D5C26C0608F00B50442 /* ProgrammerAndDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B11D5A26C0600700B50442 /* ProgrammerAndDependencies.swift */; };
 /* End PBXBuildFile section */
@@ -43,9 +42,7 @@
 		0030162526BC0FF800ED82B6 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
 		0030162726BC1F1C00ED82B6 /* AnyServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyServiceFactory.swift; sourceTree = "<group>"; };
 		0030162926BC1F5700ED82B6 /* BasicServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicServiceFactory.swift; sourceTree = "<group>"; };
-		0030162B26BC211D00ED82B6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		00B11D4C26BEFCD100B50442 /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
-		00B11D5026BF2AE000B50442 /* OtherTestHelperFunctionality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTestHelperFunctionality.swift; sourceTree = "<group>"; };
 		00B11D5A26C0600700B50442 /* ProgrammerAndDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammerAndDependencies.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,7 +93,6 @@
 				0030162126BC0E9D00ED82B6 /* ServiceFactory.swift */,
 				0030162726BC1F1C00ED82B6 /* AnyServiceFactory.swift */,
 				0030162926BC1F5700ED82B6 /* BasicServiceFactory.swift */,
-				0030162B26BC211D00ED82B6 /* README.md */,
 				00B11D4C26BEFCD100B50442 /* ServiceLocator.swift */,
 			);
 			path = "di-dumb";
@@ -107,7 +103,6 @@
 			children = (
 				003015F426BBDB7300ED82B6 /* di_dumbTests.swift */,
 				003015F626BBDB7300ED82B6 /* Info.plist */,
-				00B11D5026BF2AE000B50442 /* OtherTestHelperFunctionality.swift */,
 				00B11D5A26C0600700B50442 /* ProgrammerAndDependencies.swift */,
 			);
 			path = "di-dumbTests";
@@ -236,7 +231,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00B11D5126BF2AE000B50442 /* OtherTestHelperFunctionality.swift in Sources */,
 				003015F526BBDB7300ED82B6 /* di_dumbTests.swift in Sources */,
 				00B11D5B26C0600700B50442 /* ProgrammerAndDependencies.swift in Sources */,
 			);
