@@ -6,7 +6,7 @@ Please address any questions to Robin Macharg: robin.macharg@gmail.com
 
 A note on the name: `di_dumb` is a simple Dependency Injection framework.  I took the drum threme and ran with it, hence the app being called Bdum Tish.
 At one point there was also an alternative Drumroll framework but that's mercifully been elided.  `di_dumb` is not a great name and does lead to some weirdnesses
-where underscores and hyphens are substituted automatically by Xcode.
+where underscores and hyphens are substituted automatically by Xcode during project setup.
 
 ## Examplar app
 
@@ -54,14 +54,14 @@ The simplest, most likely correct solution to this problem is to use a predefine
 
 ## Architecture
 
-The DI framework is based on discussion and associated playground mentioned above.  I've taken the individual object definitions and split them into separate
-files pragmatically, along basic DI/Service Locator patttern lines.
+The DI framework is based on discussion and associated playground mentioned above, and uses a Service Locator pattern.  I've taken the individual object 
+definitions and split them into separate files pragmatically, along basic DI/Service Locator patttern lines.
 
 ## Limitations/Issues
 
 - The code was developed primarily on Xcode 12.5, on Big Sur, targetting an iPhone Simulator on iOS 14.5.  The framework has no specific iOS dependencies.
 - There is currently no explicit handling of circular dependencies although their presence and failure to resolve are exposed in a test.  Looking at how existing 
-  frameworks (e.g. Swinject, Unity) handle this, a possible solutionis to defer resolution until the object is required.  Detecting and handling non-deferred circular 
+  frameworks (e.g. Swinject, Unity) handle this, a possible solution is to defer resolution until the object is required.  Detecting and handling non-deferred circular 
   dependencies at runtime would require tracking resolution depth during resolution, perhaps via internal `_resolve()` methods.  Swinject makes use of a
   `ServiceEntry` class that holds dependencies (instances, factories) and allows calling `initCopmpleted()` on them to achieve deferrment.
 - As stated above the framework does not explicitly supoprt keyed property or method-based injection.  
@@ -69,20 +69,22 @@ files pragmatically, along basic DI/Service Locator patttern lines.
 - Threading has not been considered.  Some form of synchronisation/locking may be beneficial where cross-thread access is an issue.
 - Similarly I've not given due consideration to memory management.
 - Error handling (e.g. failed resolution) is limited - `nil` is returned.  This should ideally throw to allow structured handling.  A Result<> type was tried but was too 
-  unwieldy.
+  unwieldy, placing the burden of explicit `get()` calls on the implementer.
 - Current extensibility is met through the use of factories which provide flexible runtime configuration of dependencies.  Notes above indicate some of the ways the
-  framework could be extended (e.g. tags, arguments/argument closures).
+  framework could be extended (e.g. tags, arguments/argument closures).  There is a `reset()` method but no ability to remove or replace specific dependencies.  
+  There's no global dependency register - all dependency-configuring classes have, ironically, a dependency on the DI framework.
 - Documentation/comments is extensive if not complete.  I've erred on the side of over-documentation to show thinking.  In production code this would be reduced 
   to answer "why?" questions.  Code could always be clearer but I hope what I've included is ideomatic.
 - The main DI functionality is expressed via structs, and allows fluent composition.  I'd probably rewrite this to use classes given the time.
-- I've commited code regularly but without branching due to the simple scope.  WIP/Transfer commits allow moving development to a separate computer.
+- I've commited code regularly but without branching due to the simple scope.  Commits labelled "WIP/Transfer" allow moving development to a separate computer.
   I've not tried to tidy up history, again due to the scope of the work.
 
 ## Using the framework in your own project
 
 ### Include the framework in your project
 
-Ensuring that the `di-dumb` project is closed, in your app, drag the `di_dumb.xcodeproj` into your app's project navigator.
+Ensuring that the `di-dumb` project is closed, in your app, drag the `di_dumb.xcodeproj` into your app's project navigator.  Additionally youmay want to drag the 
+built framework into your project's dependencies either under General or Build Phases sections of the project config. 
 
 ### Incorporate the framework in your code
 
@@ -95,7 +97,7 @@ let container = Container()
     // Instance-based resolution
     .register(YourObjectProtocol.self, instance: YourObject())
     
-    // Factory-based resolution
+    // Fluent composition, Factory-based resolution
     .register(YourOtherObject.self) { resolver -> YourOtherObject in
         let yourOtherObject = YourOtherObject()
         yourOtherObject.firstDependency = resolver.resolve(YourObjectProtocol.self)
@@ -105,7 +107,7 @@ let container = Container()
 let object = container.resolve(YourObjectProtocol.self)
 ```
 
-The ViewController in `Bdum Tish` has a fuller example. 
+The ViewController in `Bdum Tish` has a fuller working example. 
 
 ## References
 
@@ -116,7 +118,8 @@ The ViewController in `Bdum Tish` has a fuller example.
 
 ## TODO
 
-- Change Result<> to ServiceType?
+- Change Result<> to ServiceType? DONE
+- Change resolution to throwing
 - Explore circular dependencies
 - Explore property decorators
 - SPM?
