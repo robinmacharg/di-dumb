@@ -10,7 +10,7 @@ where underscores and hyphens are substituted automatically by Xcode during proj
 
 ## Examplar app
 
-An example app that makes use of the framework is included.  I've eschewed dependency management (e.g. Coooapods, SPM etc.) and simply included the 
+An example app that makes use of the framework is included.  I've eschewed dependency management (e.g. Cocoapods, SPM etc.) and simply included the 
 framework project directly in the examplar app.
 
 Tests are limited to the framework.  App logic is minimal (a single simple View Controller) and not the issue explored here. For expediency both project and 
