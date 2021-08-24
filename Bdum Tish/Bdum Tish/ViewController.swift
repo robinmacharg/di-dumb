@@ -14,7 +14,11 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var progressLabel: UILabel!
 
+    // MARK: - Properties
+
     var programmerResolver: Container?
+
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,16 +32,18 @@ class ViewController: UIViewController {
      * Report back how we did to the boss (this VC is the boss)
      */
     @IBAction func startMacProgrammersDay(_ sender: Any) {
-        programmerResolver = try! Container()
-            // Coffee factory
-            .register(Coffee.self) { _ in
+        if let resolver = try? Container()
+            .register(Coffee.self, { _ in
                 return Caffeinated()
-            }
+            })
             .register(Computer.self, instance: Mac())
-        initialiseProgrammerResolver(resolver: programmerResolver)
-
-        if programmerResolver != nil {
-            doAHardDaysGraft(programmerResolver: programmerResolver!)
+        {
+            self.programmerResolver = resolver
+            initialiseProgrammerResolver(resolver: resolver)
+            doAHardDaysGraft(programmerResolver: self.programmerResolver!)
+        }
+        else {
+            // error handling
         }
     }
 
@@ -46,18 +52,22 @@ class ViewController: UIViewController {
      * Report back how we did to the boss (this VC is the boss)
      */
     @IBAction func startPCProgrammersDay(_ sender: Any) {
-        programmerResolver = try! Container()
-            // Coffee factory
-            .register(Coffee.self) { _ in
+        if let resolver = try? Container()
+            .register(Coffee.self, { _ in
                 return Decaf()
-            }
+            })
             .register(Computer.self, instance: PC())
-        initialiseProgrammerResolver(resolver: programmerResolver)
-
-        if programmerResolver != nil {
-            doAHardDaysGraft(programmerResolver: programmerResolver!)
+        {
+            self.programmerResolver = resolver
+            initialiseProgrammerResolver(resolver: resolver)
+            doAHardDaysGraft(programmerResolver: self.programmerResolver!)
+        }
+        else {
+            // error handling
         }
     }
+
+    // MARK: - Helpers
 
     /**
      * Fully initialise a programmer dependency resolver.
