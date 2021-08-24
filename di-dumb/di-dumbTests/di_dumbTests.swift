@@ -157,20 +157,26 @@ class di_dumbTests: XCTestCase {
     }
 
     // Uncomment to expose circular dependency deficiency
-//    func testCircularDependency() throws {
-//        let resolver = try! Container()
-//            .register(A.self) { resolver in
-//                let ai = AInst(b: resolver.resolve(B.self)!)
-//                return ai
-//            }
-//            .register(B.self) { resolver in
-//                let bi = BInst(a: resolver.resolve(A.self)!)
-//                return bi
-//            }
-//
-//        // Infinite recursion
-//        let a = resolver.resolve(A.self)
-//    }
+    func testCircularDependency() throws {
+        let resolver = try! Container()
+            .register(A.self) { resolver in
+                let ai = AInst(b: resolver.resolve(B.self)!)
+                return ai
+            }
+            .register(B.self) { resolver in
+                let bi = BInst(a: resolver.resolve(A.self)!)
+                return bi
+            }
+
+    do {
+        // Infinite recursion
+        let a = resolver.resolve(A.self)
+    }
+    catch let e as ContainerError {
+        // switch...
+    }
+
+    }
 }
 
 // MARK: - Supporting classes to expose circular dependency deficiency

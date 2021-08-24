@@ -7,10 +7,13 @@
 
 import Foundation
 
-public enum ContainerError: Error, Equatable {
+public enum ContainerError: Error {
     case generalError(String)
     case factoryError
     case registrationError
+    case resolutionError(message: String)
+    case res
+    case circularDependency(message: String, chain: [Any.Type])
 
     public struct errorTexts {
         public static let generalError = "An Unknown Error occurred"
@@ -26,7 +29,6 @@ public enum ContainerError: Error, Equatable {
  * Supports chaining of registrations
  */
 public struct Container: Resolver {
-
     var factories: [AnyServiceFactory] = []
 
     public init() {}
@@ -38,6 +40,8 @@ public struct Container: Resolver {
     public func reset() -> Container {
         return .init(factories: [])
     }
+
+    var state: [Any.Type] = []
 
     // MARK: Register
 
@@ -68,9 +72,9 @@ public struct Container: Resolver {
      * - Returns: An instance of self
      */
     @discardableResult
-    public func register<ServiceType>(_ type: ServiceType.Type, _ factory: @escaping (Resolver) -> ServiceType) throws -> Container   {
+    public func register<ServiceType>(_ type: ServiceType.Type, tag: String? = nil, _ factory: @escaping (Resolver) -> ServiceType) throws -> Container   {
         // Check we're not already registered for this type
-        if factories.contains(where: { $0.supports(type) }) {
+        if factories.contains(where: { $0.supports(type, tag) }) {
             throw ContainerError.registrationError
         }
 
@@ -94,12 +98,38 @@ public struct Container: Resolver {
     // TODO: Try throws
     // TODO: handle recursion
 
-    public func resolve<ServiceType>(_ type: ServiceType.Type) -> ServiceType? {
-        guard let factory = factories.first(where: { $0.supports(type) }) else {
-            return nil //.failure(ContainerError.generalError(ContainerError.errorTexts.noSuitableFactoryFound))
-//            fatalError(Errors.noSuitableFactoryFound)
+    public mutating func resolve<ServiceType>(_ type: ServiceType.Type) -> ServiceType? {
+        return try? self.resolveOrThrow(type)
+    }
+
+    // debug only
+    public mutating func resolveOrThrow<ServiceType>(_ type: ServiceType.Type) throws -> ServiceType {
+
+        // Circular dependency
+        if true /* contains() */ {
+            defer {
+                state = []
+            }
+            throw ContainerError.circularDependency(message: "circular dependency detected:", chain: state)
         }
-        return factory.resolve(self)
+
+        else {
+            state.append(type)
+            guard let factory = factories.first(where: { $0.supports(type) }) else {
+                throw ContainerError.resolutionError(message: "Resolution failed")
+            }
+            let resolvedInstance = factory.resolve(self) as ServiceType
+
+            state = state.filter({ type in
+                return type is ServiceType
+            })
+
+
+//            state = state.filter({ t in
+//                resolvedInstance is t
+//            })
+            return resolvedInstance
+        }
     }
 
     /**

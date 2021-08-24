@@ -14,14 +14,14 @@ final class AnyServiceFactory {
     private let _resolve: (Resolver) -> Any
     private let _supports: (Any.Type) -> Bool
 
-    init<T: ServiceFactory>(_ serviceFactory: T) {
+    init<T: ServiceFactory>(_ serviceFactory: T, tag: String? = nil) {
         self._resolve = { resolver -> Any in
             serviceFactory.resolve(resolver)
         }
         self._supports = { $0 == T.ServiceType.self }
     }
 
-    func resolve<ServiceType>(_ resolver: Resolver) -> ServiceType {
+    func resolve<ServiceType>(_ resolver: Resolver, tag: String? = nil) -> ServiceType {
         return _resolve(resolver) as! ServiceType
     }
 
